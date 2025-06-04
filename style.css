@@ -5,7 +5,7 @@
 }
 
 body {
-  font-family: Arial, sans-serif;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif, sans-serif;
   text-align: center;
   background-color: #121212;
   color: rgb(218, 218, 218);
@@ -17,12 +17,12 @@ body {
 }
 
 h2 {
-  margin: 5px 0;
+  margin: 10px 0;
   color: tomato;
   font-size: clamp(18px, 4vw, 26px);
 }
 .banner {
-  width: 250px;
+  width: 210px;
 }
 .instrucciones {
   color: #9c9c9c;
@@ -30,7 +30,7 @@ h2 {
   margin-bottom: 15px;
 }
 #spin-button {
-  background: linear-gradient(135deg, #6e8efb, #a777e3);
+  background: linear-gradient(135deg, #fb6e6e, #a777e3);
   color: white;
   border: none;
   padding: 12px 30px;
