@@ -36,6 +36,11 @@ async function initApp() {
     alert("url invalida");
     return;
   }
+  const isValid = await verifyToken();
+  if (!isValid) {
+    alert("Este link ya fue usado.");
+    return;
+  }
   items = await getPrizes(type);
   createWheel();
   createPointer();
@@ -48,7 +53,7 @@ function createWheel() {
   wheelContainer.addChild(rim);
 
   const segmentAngle = (2 * Math.PI) / items.length;
-  const fontSize = Math.max(13, radius * 0.1); // Responsive font size
+  const fontSize = Math.max(12, radius * 0.07); // Responsive font size
 
   items.forEach((item, index) => {
     const startAngle = index * segmentAngle;
@@ -85,17 +90,14 @@ function createWheel() {
     const labelY = Math.sin(labelAngle) * (radius * 0.7);
 
     const text = new PIXI.Text(item.name.replace("+", "\n"), {
-      fontFamily: "Thaoma",
+      fontFamily: "Tahoma",
+      fontWeight: "bold",
       fontSize: fontSize,
-      fontWeight: "regular",
-      fill: 0xffffff,
-      align: "right",
-      dropShadow: true,
-      dropShadowColor: 0x000000,
-      dropShadowDistance: 1,
+      fill: 0x222222,
+      align: "left",
     });
 
-    text.anchor.set(0.5);
+    text.anchor.set(0.3);
     text.position.set(labelX, labelY);
     text.rotation = labelAngle + Math.PI;
     wheelContainer.addChild(text);
@@ -170,7 +172,6 @@ function showWinnerPopup() {
 }
 
 async function spinWheel() {
-  const isValid = await verifyToken();
   const spinButton = document.getElementById("spin-button");
   const resultDiv = document.getElementById("result");
 
@@ -192,7 +193,6 @@ async function spinWheel() {
     duration: 8,
     ease: "power3.out",
     onComplete: () => {
-      spinButton.disabled = false;
       const selectedItem = items[winnerIndex];
       resultDiv.textContent = `Winner: ${selectedItem.name}`;
       resultDiv.style.color = selectedItem.color;
@@ -238,3 +238,79 @@ window.addEventListener("load", () => {
 window.addEventListener("resize", () => {
   initApp();
 });
+
+var config = {};
+config.window = window;
+config.wWidth = config.window.innerWidth;
+config.wHeight = config.window.innerHeight;
+
+config.t = 0.4;
+config.t2 = 1;
+config.e = Power2.easeOut;
+config.e2 = Power2.easeIn;
+
+config.pageTrans = new TimelineMax({ repeat: 1, repeatDelay: 0, yoyo: true });
+
+config.pageTrans
+  .fromTo(
+    ".white",
+    config.t,
+    { x: config.wWidth / 2 },
+    { x: 0, ease: config.e },
+    "f"
+  )
+  .fromTo(
+    ".grey",
+    config.t,
+    { x: -config.wWidth / 2 },
+    { x: 0, ease: config.e },
+    "f"
+  )
+  .fromTo(
+    ".black",
+    config.t,
+    { y: -config.wHeight },
+    { y: 0, ease: config.e },
+    "f"
+  )
+  .fromTo(
+    ".gold",
+    config.t,
+    { y: config.wHeight },
+    { y: 0, ease: config.e },
+    "f"
+  )
+  .fromTo(
+    ".grey",
+    config.t2,
+    { y: 0 },
+    { y: -config.wHeight / 2, ease: config.e2 },
+    "f+=.4"
+  )
+  .fromTo(
+    ".white",
+    config.t2,
+    { y: 0 },
+    { y: config.wHeight / 2, ease: config.e2 },
+    "f+=.4"
+  )
+  .fromTo(
+    "#pagetransition",
+    2,
+    { rotation: 0 },
+    { rotation: 15, ease: config.e },
+    "f"
+  )
+  .fromTo(
+    ".vic-gb",
+    0.8,
+    { rotation: 0, scale: 0 },
+    { rotation: -15, scale: 1, ease: Back.easeOut },
+    "f+=.3"
+  );
+setTimeout(() => {
+  const transition = document.getElementById("pagetransition");
+  transition.style.zIndex = "0";
+  transition.style.width = 0;
+  transition.style.height = 0;
+}, 5000);
