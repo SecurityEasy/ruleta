@@ -30,8 +30,37 @@ async function initApp() {
   const segmentAngle = (2 * Math.PI) / items.length;
 
   wheelContainer = new PIXI.Container();
+  logoContainer = new PIXI.Container();
+
+  await PIXI.Assets.load("./assets/logo.png").then((texture) => {
+    const diameter = Math.min(app.screen.width, app.screen.height) * 0.11;
+    const radius = diameter / 2;
+
+    // Create a circle with the image as texture
+    const circle = new PIXI.Graphics();
+    circle.beginTextureFill({
+      texture,
+      matrix: new PIXI.Matrix()
+        .translate(-texture.width / 2, -texture.height / 2)
+        .scale(diameter / texture.width, diameter / texture.height),
+    });
+    circle.drawCircle(0, 0, radius);
+    circle.endFill();
+
+    // Center and add to stage
+    circle.x = app.screen.width / 2;
+    circle.y = app.screen.height / 2;
+    app.stage.addChild(circle);
+
+    // Add border
+    const border = new PIXI.Graphics();
+    border.lineStyle(4, 0x333333);
+    border.drawCircle(app.screen.width / 2, app.screen.height / 2, radius);
+    logoContainer.addChild(circle);
+  });
   wheelContainer.position.set(centerX, centerY);
   app.stage.addChild(wheelContainer);
+  app.stage.addChild(logoContainer);
   if (!type) {
     alert("url invalida");
     return;
@@ -48,12 +77,24 @@ async function initApp() {
 
 function createWheel() {
   const rim = new PIXI.Graphics();
-  rim.lineStyle(10, 0x333333);
+  rim.lineStyle(10, 0x555555);
   rim.drawCircle(0, 0, radius + 5);
+  const glow = new PIXI.filters.GlowFilter({
+    distance: 35,
+    color: 0xffff99,
+    outerStrength: 0.5,
+  });
+  rim.filters = [glow];
+  gsap.to(glow, {
+    outerStrength: 2,
+    duration: 3,
+    repeat: -1,
+    yoyo: true,
+  });
   wheelContainer.addChild(rim);
 
   const segmentAngle = (2 * Math.PI) / items.length;
-  const fontSize = Math.max(12, radius * 0.07); // Responsive font size
+  const fontSize = Math.max(11, radius * 0.064);
 
   items.forEach((item, index) => {
     const startAngle = index * segmentAngle;
@@ -69,15 +110,15 @@ function createWheel() {
 
     const stopper = new PIXI.Graphics();
     stopper.beginFill(0x333333);
-    stopper.lineStyle(7, 0xffffff);
+    stopper.lineStyle(7, 0xdddddd);
     stopper.moveTo(0, 0);
     stopper.lineTo(
       Math.cos(startAngle) * radius,
       Math.sin(startAngle) * radius
     );
     stopper.lineTo(
-      Math.cos(startAngle) * (radius + 10),
-      Math.sin(startAngle) * (radius + 10)
+      Math.cos(startAngle) * (radius + 1),
+      Math.sin(startAngle) * (radius + 1)
     );
     stopper.lineTo(0, 0);
     stopper.endFill();
@@ -93,7 +134,7 @@ function createWheel() {
       fontFamily: "Tahoma",
       fontWeight: "bold",
       fontSize: fontSize,
-      fill: 0x222222,
+      fill: 0x050505,
       align: "left",
     });
 
@@ -104,7 +145,7 @@ function createWheel() {
   });
 
   const centerCircle = new PIXI.Graphics();
-  centerCircle.beginFill(0x222222);
+  centerCircle.beginFill(0x444444);
   centerCircle.lineStyle(3, 0xffffff);
   centerCircle.drawCircle(0, 0, radius * 0.15);
   centerCircle.endFill();
@@ -161,14 +202,14 @@ function createConfetti(color, x, y) {
 
 function showWinnerPopup() {
   const popup = document.getElementById("winner-popup");
-  popup.innerHTML = "Ganaste\n " + items.find((i) => i.winner).name;
+  popup.innerHTML = "Ganaste\n " + items.find((i) => i.winner).name + "!";
   popup.style.opacity = "1";
   popup.style.transform = "translate(-50%, -50%) scale(1)";
 
   setTimeout(() => {
     popup.style.opacity = "0";
     popup.style.transform = "translate(-50%, -50%) scale(0)";
-  }, 5000);
+  }, 8000);
 }
 
 async function spinWheel() {
