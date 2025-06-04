@@ -9,7 +9,7 @@ body {
   text-align: center;
   background-color: #121212;
   color: rgb(218, 218, 218);
-  padding: 20px;
+  padding: 0px;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -17,17 +17,17 @@ body {
 }
 
 h2 {
-  margin: 15px 0;
+  margin: 5px 0;
   color: tomato;
   font-size: clamp(18px, 4vw, 26px);
 }
 .banner {
-  width: 300px;
+  width: 250px;
 }
 .instrucciones {
   color: #9c9c9c;
   font-size: 0.8rem;
-  margin-bottom: 25px;
+  margin-bottom: 15px;
 }
 #spin-button {
   background: linear-gradient(135deg, #6e8efb, #a777e3);
@@ -37,7 +37,7 @@ h2 {
   font-size: 18px;
   border-radius: 50px;
   cursor: pointer;
-  margin: 20px 0;
+  margin: 15px 0;
   transition: transform 0.2s, box-shadow 0.2s;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
@@ -57,7 +57,6 @@ h2 {
 #wheel-container {
   position: relative;
   width: 100%;
-  max-width: 600px;
   aspect-ratio: 1/1;
   margin: 0 auto;
 }

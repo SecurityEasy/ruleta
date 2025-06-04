@@ -1,7 +1,8 @@
 let items = [];
 const token = new URLSearchParams(window.location.search).get("token");
 const type = new URLSearchParams(window.location.search).get("t");
-
+const spinButton = document.getElementById("spin-button");
+spinButton.disabled = true;
 // Initialize variables that will be set in initApp()
 let app, centerX, centerY, radius, wheelContainer;
 
@@ -12,7 +13,7 @@ async function initApp() {
 
   app = new PIXI.Application({
     width: containerWidth,
-    height: containerHeight,
+    height: containerWidth,
     backgroundColor: 0x121212,
     antialias: true,
     resolution: window.devicePixelRatio || 1,
@@ -24,7 +25,7 @@ async function initApp() {
 
   centerX = app.screen.width / 2;
   centerY = app.screen.height / 2;
-  radius = Math.min(centerX, centerY) * 0.8;
+  radius = Math.min(centerX, centerY) * 0.82;
 
   const winnerIndex = items.findIndex((item) => item.winner);
   const segmentAngle = (2 * Math.PI) / items.length;
@@ -71,6 +72,7 @@ async function initApp() {
     return;
   }
   items = await getPrizes(type);
+  spinButton.disabled = false;
   createWheel();
   createPointer();
 }
@@ -80,7 +82,7 @@ function createWheel() {
   rim.lineStyle(10, 0x555555);
   rim.drawCircle(0, 0, radius + 5);
   const glow = new PIXI.filters.GlowFilter({
-    distance: 35,
+    distance: 25,
     color: 0xffff99,
     outerStrength: 0.5,
   });
@@ -217,7 +219,6 @@ function showWinnerPopup() {
 }
 
 async function spinWheel() {
-  const spinButton = document.getElementById("spin-button");
   const resultDiv = document.getElementById("result");
 
   spinButton.disabled = true;
@@ -253,8 +254,8 @@ async function spinWheel() {
             const color = colors[Math.floor(Math.random() * colors.length)];
             const confetti = createConfetti(
               color,
-              centerX + (Math.random() - 0.5) * (radius * 1.2),
-              centerY + (Math.random() - 0.5) * (radius * 1.2)
+              centerX + (Math.random() - 0.5) * (radius * 1.5),
+              centerY + (Math.random() - 0.5) * (radius * 1.5)
             );
 
             gsap.to(confetti, {
