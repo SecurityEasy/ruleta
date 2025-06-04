@@ -89,7 +89,7 @@ function createWheel() {
     const labelX = Math.cos(labelAngle) * (radius * 0.7);
     const labelY = Math.sin(labelAngle) * (radius * 0.7);
 
-    const text = new PIXI.Text(item.name.replace("+", "\n"), {
+    const text = new PIXI.Text(item.name.replaceAll("+", "\n"), {
       fontFamily: "Tahoma",
       fontWeight: "bold",
       fontSize: fontSize,
