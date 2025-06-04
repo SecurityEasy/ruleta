@@ -36,7 +36,7 @@ async function initApp() {
     alert("url invalida");
     return;
   }
-  const isValid = await verifyToken();
+  const isValid = await verifyToken(type);
   if (!isValid) {
     alert("Este link ya fue usado.");
     return;
@@ -224,7 +224,9 @@ async function spinWheel() {
         }, i * 200);
       }
 
-      showWinnerPopup();
+      savePrize(items.find((i) => i.winner).name, type, token).then((res) =>
+        showWinnerPopup()
+      );
     },
   });
 }

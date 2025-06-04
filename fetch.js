@@ -1,13 +1,15 @@
 const prizes = {
   NIT: "https://script.google.com/macros/s/AKfycbyy82u_vrcfdR8HDmN40RwBm9zQXCRa168wc56RYRlz5ZZzs3NCIGB7_oCpWIG9PvAP/exec",
+  NB: "https://script.google.com/macros/s/AKfycbwFywNB7a4Ik16nzfmfs6sGlmMAMgV3lV0fkyiX7v1dsyiobJ7fSJ7I71LkUx9L5u-nMA/exec",
+  NAT: "https://script.google.com/macros/s/AKfycbw_62ILlvBuC1LkyumCFDzB-PRCGdZ5Ge9NPcc4-7Xy_iyIC_oDsXY8TZ_uqTHfOhNX/exec",
+  NMG: "https://script.google.com/macros/s/AKfycbxrIoKozK6HyFjAP7mlnqU3-QNOcfdwNTjV4ymXNxJcFo-8RudLKOtBKfAUml7Hwfa6iA/exec",
 };
 
-const verifyToken = () => {
-  const endpoint =
-    "https://script.google.com/macros/s/AKfycbwdUXgKYdj2M6qBU12dd3f2hslZsekVZFmhfcnb584LbCPIdl3BlF5ILjjwOQz3njf_/exec";
+const verifyToken = (type) => {
+  const endpoint = prizes[type];
   return fetch(`${endpoint}?check=${token}`)
     .then((res) => res.text())
-    .then((res) => res === "YA_USADO");
+    .then((res) => res !== "YA_USADO" || type == "test2");
 };
 
 const getPrizes = (type) => {
@@ -19,6 +21,13 @@ const getPrizes = (type) => {
     .catch((err) => console.log(err));
 };
 
-const savePrize = (type) => {
-  return fetch("");
+const savePrize = (premio, type, token) => {
+  const endpoint = prizes[type];
+  return fetch(
+    `${endpoint}?token=${token}&premio=${encodeURIComponent(premio)}`
+  )
+    .then((res) => res.text())
+    .then((data) => {
+      console.log("✅ Premio registrado: ", data);
+    });
 };
