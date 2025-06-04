@@ -3,6 +3,7 @@ const prizes = {
   NB: "https://script.google.com/macros/s/AKfycbwFywNB7a4Ik16nzfmfs6sGlmMAMgV3lV0fkyiX7v1dsyiobJ7fSJ7I71LkUx9L5u-nMA/exec",
   NAT: "https://script.google.com/macros/s/AKfycbw_62ILlvBuC1LkyumCFDzB-PRCGdZ5Ge9NPcc4-7Xy_iyIC_oDsXY8TZ_uqTHfOhNX/exec",
   NMG: "https://script.google.com/macros/s/AKfycbxrIoKozK6HyFjAP7mlnqU3-QNOcfdwNTjV4ymXNxJcFo-8RudLKOtBKfAUml7Hwfa6iA/exec",
+  NLR: "https://script.google.com/macros/s/AKfycbwAXK12eDEgqHkUEq6gV_gN7UqfEW5uPgQm7YKHrfGAAF0w0RLsw9f0QPBoBS1LmL5b/exec",
 };
 
 const verifyToken = (type) => {
