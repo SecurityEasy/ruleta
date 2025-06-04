@@ -112,7 +112,7 @@ function createWheel() {
 
     const stopper = new PIXI.Graphics();
     stopper.beginFill(0x333333);
-    stopper.lineStyle(7, 0xdddddd);
+    stopper.lineStyle(2, 0xdddddd);
     stopper.moveTo(0, 0);
     stopper.lineTo(
       Math.cos(startAngle) * radius,
@@ -129,8 +129,8 @@ function createWheel() {
     wheelContainer.addChild(stopper);
 
     const labelAngle = startAngle + segmentAngle / 2;
-    const labelX = Math.cos(labelAngle) * (radius * 0.7);
-    const labelY = Math.sin(labelAngle) * (radius * 0.7);
+    const labelX = Math.cos(labelAngle) * (radius * 0.8);
+    const labelY = Math.sin(labelAngle) * (radius * 0.8);
 
     const text = new PIXI.Text(item.name.replaceAll("+", "\n"), {
       fontFamily: "Tahoma",
@@ -140,7 +140,7 @@ function createWheel() {
       align: "left",
     });
 
-    text.anchor.set(0.3);
+    text.anchor.set(0.2);
     text.position.set(labelX, labelY);
     text.rotation = labelAngle + Math.PI;
     wheelContainer.addChild(text);
@@ -148,7 +148,7 @@ function createWheel() {
 
   const centerCircle = new PIXI.Graphics();
   centerCircle.beginFill(0x444444);
-  centerCircle.lineStyle(3, 0xffffff);
+  centerCircle.lineStyle(2, 0xffffff);
   centerCircle.drawCircle(0, 0, radius * 0.15);
   centerCircle.endFill();
   wheelContainer.addChild(centerCircle);
