@@ -154,11 +154,11 @@ function createWheel() {
 
 function createPointer() {
   const pointer = new PIXI.Graphics();
-  pointer.beginFill(0xcccccc);
-  pointer.moveTo(-radius * 0.1, 0);
-  pointer.lineTo(radius * 0.11, 0);
-  pointer.lineTo(0, -radius * 0.08);
-  pointer.lineTo(-radius * 0.1, 0);
+  pointer.beginFill(0x119923);
+  pointer.moveTo(-radius * 0.12, 0);
+  pointer.lineTo(radius * 0.12, 0);
+  pointer.lineTo(0, -radius * 0.14);
+  pointer.lineTo(-radius * 0.12, 0);
   pointer.endFill();
 
   pointer.beginFill(0x888888);
