@@ -28,6 +28,8 @@ const savePrize = (premio, type, token) => {
   )
     .then((res) => res.text())
     .then((data) => {
+      if (data === "Token no encontrado.") throw Error(data);
       console.log("✅ Premio registrado: ", data);
-    });
+    })
+    .catch((err) => alert(err));
 };

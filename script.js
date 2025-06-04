@@ -202,7 +202,11 @@ function createConfetti(color, x, y) {
 
 function showWinnerPopup() {
   const popup = document.getElementById("winner-popup");
-  popup.innerHTML = "Ganaste\n " + items.find((i) => i.winner).name + "!";
+  popup.innerHTML =
+    "✅ Premio registrado\n" +
+    "Ganaste\n " +
+    items.find((i) => i.winner).name +
+    "!";
   popup.style.opacity = "1";
   popup.style.transform = "translate(-50%, -50%) scale(1)";
 
