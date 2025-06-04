@@ -1,0 +1,10 @@
+{
+    "premios": [
+        {"nombre": "premio 1", "color": "#dfb425"},
+        {"nombre": "premio 2", "color": "#e22828"},
+        {"nombre": "premio 3", "color": "#eb6464"},
+        {"nombre": "premio 4", "color": "#ccfd19"},
+        {"nombre": "premio 5", "color": "#f5c425"},
+        {"nombre": "premio 6", "color": "#e94949"}
+    ]
+}
