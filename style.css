@@ -56,7 +56,7 @@ h2 {
 
 #wheel-container {
   position: relative;
-  width: 100%;
+  width: clamp(340px, 100%, 740px);
   aspect-ratio: 1/1;
   margin: 0 auto;
 }
